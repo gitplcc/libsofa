@@ -270,31 +270,22 @@ add_library(SOFA
     zpv.c
     zr.c
 )
-#~ target_compile_definitions(sofa
-    #~ PUBLIC
-        #~ $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,LIBNOVA_SHARED,LIBNOVA_STATIC>
-    #~ PRIVATE
-        #~ $<$<BOOL:${WIN32}>:_USE_MATH_DEFINES>
-        #~ $<$<BOOL:${WIN32}>:_SCL_SECURE_NO_WARNINGS>
-        #~ $<$<BOOL:${WIN32}>:_CRT_SECURE_NO_DEPRECATE>
-        #~ $<$<BOOL:${WIN32}>:__WIN32__>
-#~ )
 target_include_directories(SOFA
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    INTERFACE
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 target_link_libraries(SOFA ${MATH_LIBRARY})
-#~ if (BUILD_SHARED_LIBS)
+if (BUILD_SHARED_LIBS)
     set_target_properties(SOFA
         PROPERTIES
             OUTPUT_NAME sofa
-            #~ POSITION_INDEPENDENT_CODE ON
-            #~ C_VISIBILITY_PRESET hidden
-            #~ VERSION "${libnova_VERSION_MAJOR}.${libnova_VERSION_MINOR}.${libnova_VERSION_PATCH}"
-            #~ SOVERSION ${libnova_VERSION_MAJOR}
+            VERSION "${SOFA_VERSION_MAJOR}.${SOFA_VERSION_MINOR}.${SOFA_VERSION_PATCH}"
+            SOVERSION ${SOFA_VERSION_MAJOR}
     )
-#~ endif (BUILD_SHARED_LIBS)
+endif (BUILD_SHARED_LIBS)
 
 add_library(SOFA::SOFA ALIAS SOFA)
 
@@ -302,7 +293,6 @@ add_library(SOFA::SOFA ALIAS SOFA)
 install(
     TARGETS  SOFA
     EXPORT   SOFATargets
-    INCLUDES DESTINATION "${SOFA_HEADER_PATH}"
 )
 
 install(
