@@ -7,7 +7,7 @@ It supports:
 - or building & installing the library in its own directory and registering it in user local CMake registry,
 - or installing and registering library system wide.
 
-Using SOFA::SOFA target with link_libaries command adds all needed include directories and libraries to user targets.
+Using SOFA::SOFA target with link_libraries command adds all needed include directories and libraries to user targets.
 
 ``` 
 myapp.c
