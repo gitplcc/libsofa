@@ -9,7 +9,7 @@ It supports:
 
 Using SOFA::SOFA target with link_libraries command adds all SOFA library needed include directories and dependencies to user targets.
 
-``` 
+```C
 myapp.c
 
 #include <libsofa/sofa.h>
@@ -18,7 +18,9 @@ void main(int argc, char *argv)
 {
 ...
 }
+```
 
+```CMake
 CMakeLists.txt
 
 find_package(SOFA REQUIRED) # library built & installed in its own directory or system wide
