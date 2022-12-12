@@ -20,7 +20,7 @@
 #  
 cmake_minimum_required(VERSION 3.13...3.20)
 
-project(SOFA VERSION 0.17.0 LANGUAGES C)
+project(SOFA VERSION 0.18.0 LANGUAGES C)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
