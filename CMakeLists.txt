@@ -18,16 +18,18 @@
 #  MA 02110-1301, USA.
 #  
 #  
-cmake_minimum_required(VERSION 3.13...3.20)
+cmake_minimum_required(VERSION 3.28...4.2)
 
 project(SOFA VERSION 0.18.0 LANGUAGES C)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(CMakeDependentOption)
+include(CheckPIESupported)
+
+check_pie_supported(LANGUAGES C CXX)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    include(CMakeDependentOption)
-
     ###########################################################################
     # Snippet from https://blog.kitware.com/cmake-and-the-default-build-type/
     # Set a default build type if none was specified

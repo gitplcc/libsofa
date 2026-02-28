@@ -18,11 +18,8 @@
 #  MA 02110-1301, USA.
 #  
 #  
-set(SOFA_HEADER_PATH "${CMAKE_INSTALL_INCLUDEDIR}/libsofa")
 set(SOFA_PUBLIC_HEADERS sofa.h sofam.h)
-
-add_library(SOFA
-    ${SOFA_PUBLIC_HEADERS}
+set(SOFA_SRCS
     a2af.c
     a2tf.c
     ab.c
@@ -43,7 +40,7 @@ add_library(SOFA
     apio.c
     apio13.c
     atcc13.c
-	atccq.c
+    atccq.c
     atci13.c
     atciq.c
     atciqn.c
@@ -156,8 +153,7 @@ add_library(SOFA
     ltpb.c
     ltpecl.c
     ltpequ.c
-    makefile
-	moon98.c
+    moon98.c
     num00a.c
     num00b.c
     num06a.c
@@ -273,22 +269,35 @@ add_library(SOFA
     zpv.c
     zr.c
 )
-target_include_directories(SOFA
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}
-    INTERFACE
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+add_library(SOFA)
+target_sources(SOFA
+  PUBLIC
+    FILE_SET sofa_hdrs
+      TYPE HEADERS
+      FILES
+        ${SOFA_PUBLIC_HEADERS}
+  PRIVATE
+    ${SOFA_SRCS}
 )
-target_link_libraries(SOFA ${MATH_LIBRARY})
+target_compile_features(SOFA PUBLIC c_std_11)
+set_target_properties(SOFA
+    PROPERTIES
+        C_EXTENSIONS OFF
+        OUTPUT_NAME sofa
+        POSITION_INDEPENDENT_CODE ${CMAKE_C_LINK_PIE_SUPPORTED}
+)
 if (BUILD_SHARED_LIBS)
     set_target_properties(SOFA
         PROPERTIES
-            OUTPUT_NAME sofa
-            VERSION "${SOFA_VERSION_MAJOR}.${SOFA_VERSION_MINOR}.${SOFA_VERSION_PATCH}"
-            SOVERSION ${SOFA_VERSION_MAJOR}
+            C_VISIBILITY_PRESET hidden
     )
 endif (BUILD_SHARED_LIBS)
+target_include_directories(SOFA
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_link_libraries(SOFA $<$<BOOL::${MATH_LIBRARY}>:${MATH_LIBRARY}>)
 
 add_library(SOFA::SOFA ALIAS SOFA)
 
@@ -296,9 +305,6 @@ add_library(SOFA::SOFA ALIAS SOFA)
 install(
     TARGETS  SOFA
     EXPORT   SOFATargets
-)
-
-install(
-    FILES       ${SOFA_PUBLIC_HEADERS}
-    DESTINATION "${SOFA_HEADER_PATH}"
+    FILE_SET sofa_hdrs
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/libsofa"
 )
