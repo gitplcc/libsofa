@@ -20,6 +20,13 @@
 #  
 cmake_minimum_required(VERSION 3.28...4.2)
 
+include(FetchContent)
+FetchContent_Declare(
+  sofa
+  URL  https://www.iausofa.org/s/sofa_c-20231011tar.gz
+)
+FetchContent_MakeAvailable(sofa)
+ 
 project(SOFA VERSION 0.18.0 LANGUAGES C)
 
 include(GNUInstallDirs)
@@ -27,7 +34,7 @@ include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
 include(CheckPIESupported)
 
-check_pie_supported(LANGUAGES C CXX)
+check_pie_supported(LANGUAGES C)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     ###########################################################################
