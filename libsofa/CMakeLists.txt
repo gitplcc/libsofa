@@ -300,8 +300,8 @@ if (BUILD_SHARED_LIBS)
 endif (BUILD_SHARED_LIBS)
 target_include_directories(SOFA
     PUBLIC
-        $<BUILD_INTERFACE:${sofa_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        $<BUILD_INTERFACE:${SOFA_SRCS_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/libsofa>
 )
 target_link_libraries(SOFA $<$<BOOL::${MATH_LIBRARY}>:${MATH_LIBRARY}>)
 
@@ -312,5 +312,5 @@ install(
     TARGETS  SOFA
     EXPORT   SOFATargets
     FILE_SET sofa_hdrs
-    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/libsofa"
+      DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libsofa
 )
