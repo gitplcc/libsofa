@@ -12,7 +12,8 @@ Using SOFA::SOFA target with link_libraries command adds all SOFA library needed
 ```C
 myapp.c
 
-#include <libsofa/sofa.h>
+#include <sofa.h>
+#include <sofam.h>
 
 void main(int argc, char *argv)
 {
