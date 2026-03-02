@@ -65,12 +65,6 @@ endif()
 find_library(MATH_LIBRARY m)
 mark_as_advanced(MATH_LIBRARY)
 
-# Allow in-tree target execution for PE/COFF systems
-if(NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
-endif()
-
 # traverse the sub directories
 add_subdirectory(libsofa)
 
