@@ -1,5 +1,5 @@
 # libsofa
-"CMake ready" repository that integrates [UAI SOFA C library](https://www.iausofa.org/current_C.html#Downloads) in CMake build system.
+"CMake ready" repository that integrates [UAI SOFA C library](https://www.iausofa.org/2023-10-11c) in CMake build system.
 
 It supports:
 - Compiling library as dynamic or static.
