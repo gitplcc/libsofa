@@ -288,6 +288,12 @@ target_include_directories(SOFA
         $<BUILD_INTERFACE:${SOFA_SRCS_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/libsofa>
 )
+if(MSVC)
+    target_link_options(SOFA
+        PRIVATE 
+            /DEF:${CMAKE_CURRENT_SOURCE_DIR}/libsofa.def
+    )
+endif()
 target_link_libraries(SOFA $<$<BOOL::${MATH_LIBRARY}>:${MATH_LIBRARY}>)
 
 add_library(SOFA::SOFA ALIAS SOFA)
